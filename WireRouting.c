@@ -39,7 +39,7 @@ int main(){
    	else{
    	printf("the shorteshest path lenth is %d\n",findPath() );
    	}
-	//show grid 
+   	//show grid 
 	showGrid();
 	showPath();
 	return 0;

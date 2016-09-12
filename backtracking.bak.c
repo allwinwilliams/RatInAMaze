@@ -145,10 +145,11 @@ void push (int x,int y,int dir)
 struct StackItems pop()
 {
     struct StackItems Test;
+    Test.x = Test.y = Test.dir = 0;
     if (s.top <= - 1)
     {
         printf ("Stack is Empty\n");
-        return (s.stackitems[s.top]);
+        return (Test);
     }
     else
     {
