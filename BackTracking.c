@@ -54,38 +54,37 @@ int main()
 
     mark[1][1]=1;
 
-    s.top = 1;
+    s.top = -1;
     push(1,1,2);
     
 
     stack[0][0]=1;
     stack[0][1]=1;
     stack[0][2]=2;
-    top=1;
+    top=0;
 
-    while(s.top!=0){
+    while(s.top!=-1){
 
         InstStkI = pop();
         InstStkI.x = InstStkI.x + 1;
         InstStkI.y = InstStkI.y + 1;
         InstStkI.dir = InstStkI.dir + 1;
-
         i=stack[top][0]+1;
         j=stack[top][1]+1;
         d=stack[top][2]+1;
         top=top-1;
-
+        
         while(d<8){
-            g=i+move[d][0];
-            h=j+move[d][1];
-            if( g==m && h==n ){
+            g = i + move[d][0];
+            h = j + move[d][1];
+            if( g == m && h == n ){
                 top = top+1;
                 stack[top][0] = i; stack[top][1] = j; stack[top][2] = d;
                 top = top+1;
-                stack[top][0] = m; stack[top][1] = n; stack[top][2] = 8;
+                stack[top][0] = m; stack[top][1] = n; stack[top][2] = 0;
                 push(i,j,d);
                 push(m,n,8);
-                for(p=1;p<=top;p++){
+                for( p=0 ; p<=top ; p++){
                     printf("\nstack arr:  %d %d %d\n",stack[p][0],stack[p][1],stack[p][2]);
                     InstStkI = pop();
                     printf("stack:  %d %d %d\n",InstStkI.x, InstStkI.y, InstStkI.dir);
@@ -102,18 +101,36 @@ int main()
                     }
                     
                 }
+                printf("\n the path is \n");
+                for(i=0;i<=m+1;i++){
+                    for(j=0;j<=n+1;j++){
+                        for( p=0 ; p<top ; p++){
+                            if(i==stack[p][0] && j==stack[p][1]){
+                                printf(" * ");
+                                break;
+                            }
+                        }
+                        if(!(i==stack[p][0] && j==stack[p][1])){
+                            printf(" %d ",maze[i][j]);
+                        }
+                    }
+                    printf("\n");
+                }
                 return 0;
             }
-            if( mark[g][h]==0 && maze[g][h]==0){
+
+            if( maze[g][h]==0 && mark[g][h]==0){
                 
                 mark[g][h]=1;
-                top = top+1;
+                
 
                 push(i,j,d);
-
+                top = top+1;
                 stack[top][0]=i;
                 stack[top][1]=j;
                 stack[top][2]=d;
+                
+                
 
                 i=g;
                 j=h;
@@ -128,7 +145,7 @@ int main()
 
 void push (int x,int y,int dir)
 {
-    if ( s.top >= SIZE )
+    if ( s.top > SIZE )
     {
         printf ("Stack is Full\n");
         return;
@@ -146,7 +163,7 @@ struct StackItems pop()
 {
     struct StackItems Test;
     Test.x = Test.y = Test.dir = 0;
-    if (s.top <= - 1)
+    if (s.top <= -1)
     {
         printf ("Stack is Empty\n");
         return (Test);
