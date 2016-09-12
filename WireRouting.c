@@ -37,11 +37,11 @@ int main(){
 		printf("NO PATH FOUND\n");
 	}
    	else{
-   	printf("the shorteshest path lenth is %d\n",findPath() );
+   		printf("the shorteshest path lenth is %d\n",pathlength );
    	}
    	//show grid 
 	showGrid();
-	showPath();
+	
 	return 0;
 }
 void showPath(){
@@ -112,12 +112,14 @@ int analyseGrid(){
 			break;
 		}
 		
-		if(isEmpty()){
+		if(isEmpty()){\
+			printf("No possible path found.\n");
 			return 0;
 		}
 		
 		here = deleteQuene();
 	}	
+	findPath();
 	return 1;
 }
 int findPath(){
@@ -136,6 +138,7 @@ int findPath(){
 		here = neighbour;
 		printf("%d %d\n", path[j].row, path[j].col );
 	}
+	showPath();
 	return pathlength;	
 }
 int addQueue(struct Position pos){
