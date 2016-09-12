@@ -3,7 +3,6 @@
 #define SIZE_SIZE 40
 #include <stdlib.h>
 // #include "GRAPHICS.H"
-
 struct Position{
 	int row;
 	int col;
@@ -14,17 +13,17 @@ struct Queue
 	int rear;
 	struct Position pos[SIZE_SIZE];
 }q;
-
 int i,j,k,flag,m,n,pathlength,flag,grid[10][10];
-
 int addQueue(struct Position);
 struct Position deleteQuene(void);
 int isEmpty(void);
 void showGrid(void);
-int findPath();
-int analyseGrid();
+void makeGrid(void);
+void getGrid(void);
+void showPath(void);
+int findPath(void);
+int analyseGrid(void);
 int main(){
-
 	pathlength=0;
 	q.front = 0;q.rear = 0;
 	start.row = 1;start.col = 1;
@@ -32,34 +31,20 @@ int main(){
 	scanf("%d",&m);
 	scanf("%d",&n);
 	finish.row = m; finish.col = n;
-
-	
-	//get grid
-	for(i=1;i<=m;i++){
-        for(j=1;j<=n;j++){
-            scanf("%d",&grid[i][j]);
-        }
-    }
-	//create wall around grid
-	for(i = 0; i <= m+1; i++) {
-		grid[0][i] = grid[m+1][i]=1;
-		
-	}
-	for (i = 0; i < n+1 ; i++){
-		grid[i][0]=grid[i][n+1]=1;
-	}
+	makeGrid();
 	showGrid();
-
 	if(!analyseGrid()){
 		printf("NO PATH FOUND\n");
 	}
    	else{
    	printf("the shorteshest path lenth is %d\n",findPath() );
    	}
-
-	printf("process finished\n");
 	//show grid 
 	showGrid();
+	showPath();
+	return 0;
+}
+void showPath(){
 	printf("path is \n");
 	for(i=0;i<=m+1;i++){
         for(j=0;j<=n+1;j++){
@@ -74,9 +59,25 @@ int main(){
         }
         printf("\n");
     }
-	
-	
-	return 0;
+}
+void makeGrid(){
+	getGrid();
+	//create wall around grid
+	for(i = 0; i <= m+1; i++) {
+		grid[0][i] = grid[m+1][i]=1;
+		
+	}
+	for (i = 0; i < n+1 ; i++){
+		grid[i][0]=grid[i][n+1]=1;
+	}
+}
+void getGrid(){
+	//get grid
+	for(i=1;i<=m;i++){
+        for(j=1;j<=n;j++){
+            scanf("%d",&grid[i][j]);
+        }
+    }
 }
 int analyseGrid(){
 
@@ -152,7 +153,6 @@ struct Position deleteQuene(){
 		printf("Queue Empty\n");
 		return q.pos[q.front];
 	}
-	
 	i = q.pos[q.front];
 	q.front = q.front+1;
 	return i;
