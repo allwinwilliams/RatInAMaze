@@ -2,7 +2,7 @@
 #define SIZE 20
 #define SIZE_SIZE 40
 #include <stdlib.h>
-#include "GRAPHICS.H"
+// #include "GRAPHICS.H"
 
 struct Position{
 	int row;
@@ -15,7 +15,7 @@ struct Queue
 	struct Position pos[SIZE_SIZE];
 }q;
 
-int i,j,k,flag,m,pathlength,flag,grid[10][10];
+int i,j,k,flag,m,n,pathlength,flag,grid[10][10];
 
 int addQueue(struct Position);
 struct Position deleteQuene(void);
@@ -28,21 +28,25 @@ int main(){
 	pathlength=0;
 	q.front = 0;q.rear = 0;
 	start.row = 1;start.col = 1;
-	printf("enter grid size\n");
+	printf("enter grid size - rows and columns\n");
 	scanf("%d",&m);
-	finish.row = m; finish.col = m;
+	scanf("%d",&n);
+	finish.row = m; finish.col = n;
 
 	
 	//get grid
 	for(i=1;i<=m;i++){
-        for(j=1;j<=m;j++){
+        for(j=1;j<=n;j++){
             scanf("%d",&grid[i][j]);
         }
     }
 	//create wall around grid
 	for(i = 0; i <= m+1; i++) {
 		grid[0][i] = grid[m+1][i]=1;
-		grid[i][0]=grid[i][m+1]=1;
+		
+	}
+	for (i = 0; i < n+1 ; i++){
+		grid[i][0]=grid[i][n+1]=1;
 	}
 	showGrid();
 
@@ -58,7 +62,7 @@ int main(){
 	showGrid();
 	printf("path is \n");
 	for(i=0;i<=m+1;i++){
-        for(j=0;j<=m+1;j++){
+        for(j=0;j<=n+1;j++){
             for(k = pathlength-1; k >= 0 ;k--){
             	if(i == path[k].row && j == path[k].col  ){
             		printf(" * ");
@@ -161,7 +165,7 @@ int isEmpty(){
 }
 void showGrid(){
 	for(i=0;i<=m+1;i++){
-        for(j=0;j<=m+1;j++){
+        for(j=0;j<=n+1;j++){
             printf(" %d ",grid[i][j]);
         }
         printf("\n");

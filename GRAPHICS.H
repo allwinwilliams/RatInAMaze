@@ -10,7 +10,7 @@
 #define __GRAPHICS_H
 
 #if !defined( __DEFS_H )
-#include <_defs.h>
+#include "_DEFS.H"
 #endif
 
 enum graphics_errors {      /* graphresult error return codes */
