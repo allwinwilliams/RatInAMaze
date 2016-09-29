@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define SIZE 20
+#include <time.h>
 #include <stdlib.h>
 #include <unistd.h>
 struct StackItems{
@@ -29,10 +30,19 @@ int main()
     //     }
     // }
     //Input for maze
+    srand( time( NULL ) );
     for(i=1;i<=m;i++){
         for(j=1;j<=n;j++){
             mark[i][j]=0;
-            scanf("%d",&maze[i][j]);
+            if( (i==1&&j==1) || (i==m&&j==n) )
+                maze[i][i]=0;
+            else
+                maze[i][j] = (rand() % 2)?0:1;
+            // if(rand() % 2)
+            //     maze[i][j] = 1;
+            // else
+            //     maze[i][j] = 0;
+            //scanf("%d",&maze[i][j]);
         }
     }
     //Outer wall - horizontal
@@ -108,10 +118,12 @@ int main()
                                 printf(" * ");
                                 break;
                             }
+                            if(p==top)
+                                printf(" %d ",maze[i][j]);
                         }
-                        if(!(i==stack[p][0] && j==stack[p][1])){
-                            printf(" %d ",maze[i][j]);
-                        }
+                        // if(!(i==stack[p][0] && j==stack[p][1])){
+                        //     printf(" %d ",maze[i][j]);
+                        // }
                     }
                     printf("\n");
                 }

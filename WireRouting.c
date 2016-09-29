@@ -75,7 +75,11 @@ void getGrid(){
 	//get grid
 	for(i=1;i<=m;i++){
         for(j=1;j<=n;j++){
-            scanf("%d",&grid[i][j]);
+            if( (i==start.row&&j==start.col) || (i==finish.row&&j==finish.col) )
+                grid[i][i]=0;
+            else
+                grid[i][j] = (rand() % 2)?0:1;
+            //scanf("%d",&grid[i][j]);
         }
     }
 }
@@ -169,7 +173,7 @@ int isEmpty(){
 void showGrid(){
 	for(i=0;i<=m+1;i++){
         for(j=0;j<=n+1;j++){
-            printf(" %d ",grid[i][j]);
+            printf(" %2d ",grid[i][j]);
         }
         printf("\n");
     }
