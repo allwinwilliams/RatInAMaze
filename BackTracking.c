@@ -1,8 +1,7 @@
-#include <stdio.h>
+#include "stdio.h"
 #define SIZE 20
-#include <time.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "stdlib.h"
+#include "unistd.h"
 struct StackItems{
     int x;
     int y;
@@ -30,14 +29,13 @@ int main()
     //     }
     // }
     //Input for maze
-    srand( time( NULL ) );
     for(i=1;i<=m;i++){
         for(j=1;j<=n;j++){
             mark[i][j]=0;
             if( (i==1&&j==1) || (i==m&&j==n) )
                 maze[i][i]=0;
             else
-                maze[i][j] = (rand() % 2)?0:1;
+                maze[i][j] = (rand()%2==0)?1:0;
             // if(rand() % 2)
             //     maze[i][j] = 1;
             // else

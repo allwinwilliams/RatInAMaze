@@ -1,8 +1,7 @@
-#include <stdio.h>
+#include "stdio.h"
 #define SIZE 20
 #define SIZE_SIZE 40
-#include <stdlib.h>
-// #include "GRAPHICS.H"
+#include "stdlib.h"
 struct Position{
 	int row;
 	int col;
@@ -78,7 +77,7 @@ void getGrid(){
             if( (i==start.row&&j==start.col) || (i==finish.row&&j==finish.col) )
                 grid[i][i]=0;
             else
-                grid[i][j] = (rand() % 2)?0:1;
+                grid[i][j] = (rand()%2==0)?1:0;
             //scanf("%d",&grid[i][j]);
         }
     }
