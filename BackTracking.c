@@ -1,7 +1,7 @@
 #include "stdio.h"
-#define SIZE 20
 #include "stdlib.h"
 #include "unistd.h"
+#define SIZE 20
 struct StackItems{
     int x;
     int y;
@@ -63,23 +63,23 @@ int main()
 
     mark[1][1]=1;
 
-    s.top = -1;
+    s.top = 0;
     push(1,1,2);
     
 
-    stack[0][0]=0;
-    stack[0][1]=0;
+    stack[0][0]=1;
+    stack[0][1]=1;
     // stack[0][2]=2;
-    stack[0][2]=-1;
+    stack[0][2]=2;
     top=0;  
-    while(s.top!=-1){
+    while(s.top!=0){
         InstStkI = pop();
-        InstStkI.x = InstStkI.x + 1;
-        InstStkI.y = InstStkI.y + 1;
-        InstStkI.dir = InstStkI.dir + 1;
-        i=stack[top][0]+1;
-        j=stack[top][1]+1;
-        d=stack[top][2]+1;
+        InstStkI.x = InstStkI.x ;
+        InstStkI.y = InstStkI.y ;
+        InstStkI.dir = InstStkI.dir ;
+        i=stack[top][0];
+        j=stack[top][1];
+        d=stack[top][2];
         top = top - 1;
         while(d<8){
             g = i + move[d][0];
@@ -131,7 +131,6 @@ int main()
             if( maze[g][h]==0 && mark[g][h]==0 ){
                 
                 mark[g][h]=1;
-                
                 push(i,j,d);
                 top = top + 1;
                 stack[top][0]=i;
@@ -140,7 +139,7 @@ int main()
 
                 i=g;
                 j=h;
-                d=0;
+                d=-1;
             }//end if
             d=d+1; 
         }//end while d<8
