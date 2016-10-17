@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "unistd.h"
-#define SIZE 20
+#define MAX 20
 struct StackItems{
     int x;
     int y;
@@ -10,13 +10,13 @@ struct StackItems{
 struct stack
 {
     int top;
-    struct StackItems stackitems[SIZE];    
+    struct StackItems stackitems[MAX];    
 }s;
 void push(int, int ,int);
 struct StackItems pop(void);
 int main()
 {
-    int maze[SIZE][SIZE],mark[SIZE][SIZE],stack[SIZE][3];
+    int maze[MAX][MAX],mark[MAX][MAX],stack[MAX][3];
     int move[8][2]={-1,0,-1,1,0,1,1,1,1,0,1,-1,0,-1,-1,-1};
     int i,j,m,n,top,d,g,h,p;
     struct StackItems InstStkI;
@@ -29,6 +29,7 @@ int main()
     //     }
     // }
     //Input for maze
+    srand(time(NULL));
     for(i=1;i<=m;i++){
         for(j=1;j<=n;j++){
             mark[i][j]=0;
@@ -149,7 +150,7 @@ int main()
 }
 void push (int x,int y,int dir)
 {
-    if ( s.top > SIZE )
+    if ( s.top > MAX )
     {
         printf ("Stack is Full\n");
         return;

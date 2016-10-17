@@ -2,6 +2,7 @@
 #define SIZE 20
 #define SIZE_SIZE 40
 #include "stdlib.h"
+#include "unistd.h"
 struct Position{
 	int row;
 	int col;
@@ -12,7 +13,7 @@ struct Queue
 	int rear;
 	struct Position pos[SIZE_SIZE];
 }q;
-int i,j,k,flag,m,n,pathlength,flag,grid[10][10];
+int i,j,p,k,l,flag,m,n,pathlength,flag,grid[10][10];
 int addQueue(struct Position);
 struct Position deleteQuene(void);
 int isEmpty(void);
@@ -24,8 +25,8 @@ int findPath(void);
 int analyseGrid(void);
 int main(){
 	pathlength=0;
-	q.front = 0;q.rear = 0;
-	start.row = 1;start.col = 1;
+	q.front = 0; q.rear = 0;
+	start.row = 1; start.col = 1;
 	printf("enter grid size - rows and columns\n");
 	scanf("%d",&m);
 	scanf("%d",&n);
@@ -43,22 +44,7 @@ int main(){
 	
 	return 0;
 }
-void showPath(){
-	printf("path is \n");
-	for(i=0;i<=m+1;i++){
-        for(j=0;j<=n+1;j++){
-            for(k = pathlength-1; k >= 0 ;k--){
-            	if(i == path[k].row && j == path[k].col  ){
-            		printf(" * ");
-            		break;
-            	}
-            }
-            if(!(i == path[k].row && j == path[k].col))
-            	printf(" %d ", ( (grid[i][j]==1)?1:0 ) );
-        }
-        printf("\n");
-    }
-}
+
 void makeGrid(){
 	getGrid();
 	//create wall around grid
@@ -72,23 +58,24 @@ void makeGrid(){
 }
 void getGrid(){
 	//get grid
+	//randomize();
 	for(i=1;i<=m;i++){
         for(j=1;j<=n;j++){
             if( (i==start.row&&j==start.col) || (i==finish.row&&j==finish.col) )
                 grid[i][i]=0;
             else
-                grid[i][j] = (rand()%2==0)?1:0;
+                grid[i][j] = (rand()%4==0)?1:0;
             //scanf("%d",&grid[i][j]);
         }
     }
 }
 int analyseGrid(){
 
-    if( (start.row == finish.row) && (start.col == finish.col) ){
-		pathlength = 0;
-		printf("starting point is ending point.\n");
-		return 0;
-	}
+ 	//    if( (start.row == finish.row) && (start.col == finish.col) ){
+	// 	pathlength = 0;
+	// 	printf("starting point is ending point.\n");
+	// 	return 0;
+	// }
 
 	offset[0].row = 0; offset[0].col = 1; //right
 	offset[1].row = 1; offset[1].col = 0; //down
@@ -115,11 +102,10 @@ int analyseGrid(){
 			break;
 		}
 		
-		if(isEmpty()){\
+		if( isEmpty() ){
 			printf("No possible path found.\n");
 			return 0;
 		}
-		
 		here = deleteQuene();
 	}	
 	findPath();
@@ -140,9 +126,38 @@ int findPath(){
 		}
 		here = neighbour;
 		printf("%d %d\n", path[j].row, path[j].col );
+		//printf("path is \n");
+		
+	    // for(i=0;i<=m+1;i++){
+	    //     for(k=0;k<=n+1;k++){
+	    //         if( (i == path[(pathlength-1)-j].row) && (k == path[(pathlength-1)-j].col) )
+	    //             printf(" X ");
+	    //         else
+	    //             printf(" %d ",(grid[i][k]==1)?1:0);
+	    //     }
+	    //     printf("\n");
+	    // }
+	    // usleep(900000);		
 	}
 	showPath();
 	return pathlength;	
+}
+void showPath(){	
+	printf("path map \n");
+	for(i=0;i<=m+1;i++){
+        for(j=0;j<=n+1;j++){
+            for(k = pathlength-1; k >= 0 ;k--){
+            	if(i == path[k].row && j == path[k].col  ){
+            		printf(" * ");
+            		break;
+            	}
+            }
+            // if((i == path[k].row && j == path[k].col))
+            if(k==-1)
+            	printf(" %d ", ( (grid[i][j]==1)?1:0 ) );
+        }
+        printf("\n");
+    }
 }
 int addQueue(struct Position pos){
 	if (q.rear == SIZE_SIZE){
@@ -161,6 +176,15 @@ struct Position deleteQuene(){
 	}
 	i = q.pos[q.front];
 	q.front = q.front+1;
+	return i;
+}
+struct Position valueInFront(){
+	struct Position i;
+	if(q.front == q.rear){
+		printf("Queue Empty\n");
+		return q.pos[q.front];
+	}
+	i = q.pos[q.front];
 	return i;
 }
 int isEmpty(){
