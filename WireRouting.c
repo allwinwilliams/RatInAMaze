@@ -36,7 +36,7 @@ int main(){
 	q.front = 0; q.rear = 0;
 	start.row = 1; start.col = 1;
 	printf("enter grid size - rows and columns\n");
-	if(scanf("%d%d",&m,&n) !=2){
+	if( scanf("%d%d",&m,&n) !=2 ){
         printf("Invalid input\n");
         return(0);
     }
@@ -155,15 +155,20 @@ int findPath(){
 	    // }
 	    // usleep(900000);		
 	}
+	path[pathlength].row=path[pathlength].col=1;
 	showPath();
+
 	return pathlength;	
 }
 void showPath(){	
 	printf("path map \n");
 	for(i=0;i<=m+1;i++){
         for(j=0;j<=n+1;j++){
-            for(k = pathlength-1; k >= 0 ;k--){
-
+            for(k = pathlength; k >= 0 ;k--){
+            	// if(i==start.row && j==start.col){
+            	// 	printf(" %s*%s ",GRN,WHT);
+            	// 	break;
+            	// }
             	if(i == path[k].row && j == path[k].col  ){
             		printf(" %s*%s ",GRN,WHT);
             		break;

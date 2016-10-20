@@ -75,7 +75,7 @@ int main(){
     for(i=0;i<=m+1;i++){
         for(j=0;j<=n+1;j++){
             if(i==  0||i==m+1||j==0||j==n+1)
-                printf(" %s%d%s ",BLU,maze[i][j],WHT);
+                printf(" %s%d%s ",CYN,maze[i][j],WHT);
             else{
                 if(maze[i][j]==0)
                     printf(" %d ",maze[i][j]);
@@ -116,11 +116,9 @@ int main(){
                 stack[top][0] = m; stack[top][1] = n; stack[top][2] = 8;
                 push(i,j,d);
                 push(m,n,8);
-                
+
                 for( p=0 ; p<=top ; p++){
-                    printf("\nstack arr:  %d %d %d\n",stack[p][0],stack[p][1],stack[p][2]);
-                    InstStkI = pop();
-                    printf("stack:  %d %d %d\n",InstStkI.x, InstStkI.y, InstStkI.dir);    
+                     
                     //Print grid
                     usleep(900000);
                     for(i=0;i<=m+1;i++){
@@ -129,7 +127,7 @@ int main(){
                                 printf(" %sX%s ",RED,WHT);
                             else{
                                 if(i==0||i==m+1||j==0||j==n+1)
-                                    printf(" %s%d%s ",BLU,maze[i][j],WHT);
+                                    printf(" %s%d%s ",CYN,maze[i][j],WHT);
                                 else{
                                     for(k=0;k<=top;k++){
                                         if(i== stack[k][0]&& j==stack[k][1])
@@ -138,11 +136,17 @@ int main(){
                                     if ( mark[i][j]==1 && k== top+1 )
                                         printf(" %s%d%s ",YEL,maze[i][j],WHT);
                                     else{
-                                        if(maze[i][j]==0){
-                                            printf(" %d ",maze[i][j]);
+
+                                        if(mark[i][j]==1){
+                                            printf(" %s%d%s ",MAG,maze[i][j],WHT);
+                                        } 
+                                        else{  
+                                            if(maze[i][j]==0){
+                                                printf(" %d ",maze[i][j]);
+                                            }
+                                            else
+                                                printf(" %s%d%s ",BLU,maze[i][j],WHT);
                                         }
-                                        else
-                                            printf(" %s%d%s ",BLU,maze[i][j],WHT);
                                     }
 
                                 }
@@ -150,6 +154,9 @@ int main(){
                         }
                         printf("\n");
                     }    
+                    printf("\nstack arr:  %d %d %d\n",stack[p][0],stack[p][1],stack[p][2]);
+                    InstStkI = pop();
+                    printf("stack:  %d %d %d\n",InstStkI.x, InstStkI.y, InstStkI.dir);   
                 }
                 printf("\n the path is \n");
                 for(i=0;i<=m+1;i++){
@@ -162,7 +169,7 @@ int main(){
                             }
                             if(p==top){
                                 if(i==  0||i==m+1||j==0||j==n+1)
-                                    printf(" %s%d%s ",BLU,maze[i][j],WHT);
+                                    printf(" %s%d%s ",CYN,maze[i][j],WHT);
                                 else{
                                     for(k=0;k<=top;k++){
                                         if(i== stack[k][0]&& j==stack[k][1])
@@ -175,6 +182,7 @@ int main(){
                                             printf(" %d ",maze[i][j]);
                                         else
                                             printf(" %s%d%s ",BLU,maze[i][j],WHT);
+                                        
                                     }                                    
                                 }
                             }
@@ -210,7 +218,7 @@ int main(){
 }
 void push (int x,int y,int dir)
 {
-    if ( s.top > MAX )
+    if ( s.top > MAX*MAX )
     {
         printf ("Stack is Full\n");
         return;
